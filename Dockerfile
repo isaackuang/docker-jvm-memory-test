@@ -3,7 +3,7 @@ FROM java:8-jdk-alpine
 COPY javassist.jar .
 COPY MemoryTest.java .
 
-RUN javac -cp javassist.jar MemoryTest.java > /dev/null 2>&1
+RUN javac -cp javassist.jar MemoryTest.java
 
 # Limits the maximum JVM Heap size. An OutOfMemoryException will be generated.
 # Observe 'Java Heap' in jcmd output.
@@ -55,7 +55,7 @@ ENV LOG_PERIOD_S=1
 
 CMD java \
      -XX:+UnlockDiagnosticVMOptions -XX:NativeMemoryTracking=summary -XX:+PrintNMTStatistics \
-     -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/`date +%Y%m%d`.hprof \
+     -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/`date +%Y%m%d%H%M`.hprof \
      -Xmx${MAX_HEAP_SIZE_MB}m -Xms1m \
      -Xss${THREAD_STACK_SIZE_KB}k \
      -XX:MaxMetaspaceSize=${MAX_CLASS_SIZE_MB}m \
