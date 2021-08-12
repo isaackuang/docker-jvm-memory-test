@@ -5,6 +5,7 @@ COPY MemoryTest.java .
 
 RUN javac -cp javassist.jar MemoryTest.java
 
+RUN mkdir -p /dump
 # Limits the maximum JVM Heap size. An OutOfMemoryException will be generated.
 # Observe 'Java Heap' in jcmd output.
 ENV MAX_HEAP_SIZE_MB=64
@@ -55,7 +56,7 @@ ENV LOG_PERIOD_S=1
 
 CMD java \
      -XX:+UnlockDiagnosticVMOptions -XX:NativeMemoryTracking=summary -XX:+PrintNMTStatistics \
-     -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/`date +%Y%m%d%H%M`.hprof \
+     -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/dump/`date +%Y%m%d%H%M`.hprof \
      -Xmx${MAX_HEAP_SIZE_MB}m -Xms1m \
      -Xss${THREAD_STACK_SIZE_KB}k \
      -XX:MaxMetaspaceSize=${MAX_CLASS_SIZE_MB}m \
