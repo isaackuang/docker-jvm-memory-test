@@ -54,8 +54,8 @@ ENV ALLOC_NATIVE_MB=0
 ENV LOG_PERIOD_S=1
 
 CMD java \
-     -XX:+UnlockDiagnosticVMOptions -XX:NativeMemoryTracking=summary -XX:+PrintNMTStatistics -XX:-AutoShutdownNMT \
-     -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/`date`.hprof \
+     -XX:+UnlockDiagnosticVMOptions -XX:NativeMemoryTracking=summary -XX:+PrintNMTStatistics \
+     -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/`date +%Y%m%d`.hprof \
      -Xmx${MAX_HEAP_SIZE_MB}m -Xms1m \
      -Xss${THREAD_STACK_SIZE_KB}k \
      -XX:MaxMetaspaceSize=${MAX_CLASS_SIZE_MB}m \
