@@ -1,4 +1,4 @@
-FROM java:8-jdk-alpine
+FROM openjdk:11-jre-slim
 
 COPY javassist.jar .
 COPY MemoryTest.java .
